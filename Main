@@ -1,0 +1,52 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        TarefaService service = new TarefaService();
+        int opcao;
+
+        do{
+            System.out.println("------------ GERENCIADOR DE TAREFAS ------------");
+            System.out.println("1 - Adicionar Tarefa");
+            System.out.println("2 - Listar Tarefa");
+            System.out.println("3 - Concluir Tarefa");
+            System.out.println("4 - Remover Tarefa");
+            System.out.println("0 - Sair");
+
+            System.out.print("Escolha uma opcao: ");
+
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+
+            switch(opcao){
+                case 1:
+                    System.out.println("Descrição: ");
+                    String descricao = scanner.nextLine();
+                    service.adicionar(descricao);
+                    System.out.println("Tarefa adicionada com sucesso! " + descricao);
+                    break;
+
+                case 2:
+                    for (Tarefa tarefa : service.listar()){
+                        System.out.println(tarefa.getId() + " - " + tarefa.getDescricao()
+                        + (tarefa.isConluida() ? " ✔ " : "") + " - " + tarefa.getDescricao());
+                    }
+                    break;
+                    case 3:
+                        System.out.println("ID da Tarefa: ");
+                        int idConcluir = scanner.nextInt();
+                        System.out.println(service.concluir(idConcluir) ? "Tarefa concluída" : "Tarefa não encontrada");
+                        break;
+                        case 4:
+                            System.out.println("ID da Tarefa: ");
+                            int idRemover = scanner.nextInt();
+                            System.out.println(service.remover(idRemover)
+                            ? "Tarefa removido com sucesso!" : "Tarefa não encontrada");
+                            break;
+            }
+        }while(opcao != 0);
+        System.out.println("Obrigado por usar o Gerenciador de Tarefas!");
+    }
+}
