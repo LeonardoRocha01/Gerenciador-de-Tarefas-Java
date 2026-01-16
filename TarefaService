@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class TarefaService {
+
+    private List<Tarefa> tarefas = new ArrayList<>();
+    private int contadorId = 1;
+
+    public void adicionar(String decricao) {
+        tarefas.add(new Tarefa(contadorId++, decricao));
+    }
+
+    public List<Tarefa> listar() {
+        return tarefas;
+    }
+    public boolean concluir(int id){
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.getId() == id) {
+                    tarefa.concluir();
+                    return true;
+            }
+        }
+        return false;
+    }
+    public boolean remover(int id){
+    return tarefas.removeIf(tarefas -> tarefas.getId() == id);
+    }
+}
